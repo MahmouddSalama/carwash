@@ -7,7 +7,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
           child: ListView(
             children: [
               Logo(),

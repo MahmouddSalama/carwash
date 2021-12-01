@@ -1,7 +1,9 @@
 import 'package:carwash/consts/const_colors.dart';
+import 'package:carwash/screens/auth/ui/forget_mypass.dart';
 import 'package:carwash/screens/auth/ui/register_screen.dart';
-import 'package:carwash/screens/body/main_lauout.dart';
+import 'package:carwash/screens/bodyGarage/bodys/main_layout/main_lauout.dart';
 import 'package:carwash/widget/texts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -47,9 +49,9 @@ class _LoginFormState extends State<LoginForm> {
               focusNode: _emailFocusNode,
               nextFocusNode: _passFocusNode,
               textEditingController: _emailControlle,
-              hint: 'Phone Number',
+              hint: 'Email',
               validetor: (v) {
-                if (v.toString().isEmpty || v.toString().length > 11)
+                if (v.toString().isEmpty)
                   return 'Enter valid Phone Number';
               },
             ),
@@ -77,6 +79,20 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             SizedBox(height: 10),
+            Align(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (ctx) => ForgetPassScreen()));
+                },
+                child: Text(
+                  "Forget My Password",
+                  style:
+                      TextStyle(color: KtextColor, fontWeight: FontWeight.bold),
+                ),
+              ),
+              alignment: Alignment.centerRight,
+            ),
             Row(
               children: [
                 Checkbox(
@@ -99,35 +115,69 @@ class _LoginFormState extends State<LoginForm> {
               alignment: Alignment.centerLeft,
               child: TogelText(
                 function: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RegisterScreen()));
                 },
                 qustion: 'Don\'t have account',
                 operation: 'Register',
               ),
             ),
             SizedBox(height: 50),
-            loading? Container(
-              width: 50,
-              height: 50,
-              child: CircularProgressIndicator(color: KbtnColor,),
-            ):  DefaultButton(
-              text: 'Login',
-              function: () {
-                setState(() {
-                  loading=true;
-                });
-                Future.delayed(Duration(seconds: 2),(){
-                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (ctx)=>MainLayout()));
-                }).then((value){
-                  setState(() {
-                    loading=false;
-                  });
-                });
-                },
-            ),
+            loading
+                ? Container(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(
+                      color: KbtnColor,
+                    ),
+                  )
+                : DefaultButton(
+                    text: 'Login',
+                    function: () {
+                      _login();
+                    },
+                  ),
           ],
         ),
       ),
     );
+  }
+  _login()async{
+    String error='';
+    if(_formKey.currentState!.validate()){
+      try {
+        setState(() {
+          loading=true;
+        });
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailControlle.text.toLowerCase().trim().toString(),
+          password: _passControlle.text.trim().toString(),
+        );
+        Navigator.canPop(context)?Navigator.pop(context):null;
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>MainLayoutGarage()));
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          loading=false;
+        });
+        if (e.code == 'user-not-found') {
+          error='No user found for that email.';
+        } else if (e.code == 'wrong-password') {
+          error='Wrong password provided for that user.';
+        }
+        showDialog(context: context, builder: (context)=>AlertDialog(
+          title: Text('InValid data'),
+          content:Text(error,style: TextStyle(fontSize: 18,color: Colors.red),),
+          actions: [TextButton(onPressed: (){Navigator.pop(context);}, child: Text('ok'))],
+        ));
+      }catch (e) {
+        //print(e);
+      }
+    }
+    setState(() {
+      loading=false;
+    });
+
   }
 }

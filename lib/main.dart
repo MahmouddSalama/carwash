@@ -1,10 +1,14 @@
 import 'package:carwash/consts/const_colors.dart';
 import 'package:carwash/screens/auth/ui/register_screen.dart';
 import 'package:carwash/screens/auth/ui/signin_screen.dart';
-import 'package:carwash/screens/body/main_lauout.dart';
 import 'package:carwash/screens/spalsh/spalsh_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-main()=>runApp(MyApp());
+main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -13,8 +17,7 @@ class MyApp extends StatelessWidget {
     theme: ThemeData(
       appBarTheme: AppBarTheme(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
-        centerTitle: true,
+        elevation: 1,
         iconTheme: IconThemeData(color: Colors.black),
         titleTextStyle: TextStyle(color: KbtnColor)
       )

@@ -65,14 +65,14 @@ class DefaultTextField extends StatelessWidget {
           ),
           disabledBorder: buildUnderlineInputBorder(Colors.black),
           enabledBorder: buildUnderlineInputBorder(Colors.black),
-          focusedBorder: buildUnderlineInputBorder(Colors.blueAccent),
+          focusedBorder: buildUnderlineInputBorder(KbtnColor),
           errorBorder: buildUnderlineInputBorder(Colors.red)),
     );
   }
 
   UnderlineInputBorder buildUnderlineInputBorder(color) {
     return UnderlineInputBorder(
-      borderSide: BorderSide(color: color, width: .5),
+      borderSide: BorderSide(color: color, width: 1),
     );
   }
 }
