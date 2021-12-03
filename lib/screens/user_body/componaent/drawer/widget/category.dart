@@ -1,12 +1,12 @@
 import 'package:carwash/consts/const_colors.dart';
 import 'package:flutter/material.dart';
 
-class CategoryListTileGarage extends StatelessWidget {
+class CategoryListTileUser extends StatelessWidget {
   final String text;
   final IconData iconData;
   final Function function;
 
-  const CategoryListTileGarage({
+  const CategoryListTileUser({
     Key? key,
    required this.text,
    required this.iconData,

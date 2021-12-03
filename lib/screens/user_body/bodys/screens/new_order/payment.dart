@@ -2,7 +2,7 @@ import 'package:carwash/consts/const_colors.dart';
 import 'package:carwash/widget/visa_felid.dart';
 import 'package:flutter/material.dart';
 
-class DetailsPayment extends StatelessWidget {
+class Payment extends StatelessWidget {
   var _cardNumControl = TextEditingController();
   var _fNameControl = TextEditingController();
   var _lNameControl = TextEditingController();

@@ -1,5 +1,5 @@
 import 'package:carwash/consts/const_colors.dart';
-import 'package:carwash/screens/auth/ui/auth_state.dart';
+import '../auth/ui/auth_state/togel/auth_state.dart';
 import 'package:carwash/screens/auth/ui/signin_screen.dart';
 import 'package:carwash/widget/logo_image.dart';
 import 'package:flutter/cupertino.dart';

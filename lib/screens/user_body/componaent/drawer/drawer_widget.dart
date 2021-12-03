@@ -1,60 +1,65 @@
-
 import 'package:carwash/screens/auth/ui/signin_screen.dart';
-import 'package:carwash/screens/bodyGarage/Componant/drawer/widget/category.dart';
 import 'package:carwash/screens/bodyGarage/Componant/drawer/widget/drawer_header.dart';
 import 'package:carwash/screens/bodyGarage/bodys/screens/add_garage_screens.dart';
 import 'package:carwash/screens/bodyGarage/bodys/screens/garage_orders.dart';
 import 'package:carwash/screens/bodyGarage/bodys/screens/my_garages.dart';
 import 'package:carwash/screens/bodyGarage/bodys/screens/my_profile.dart';
+import 'package:carwash/screens/user_body/bodys/screens/new_order/garages.dart';
+import 'package:carwash/screens/user_body/bodys/screens/user_cars/user_cars.dart';
+import 'package:carwash/screens/user_body/bodys/screens/user_orders/user_order.dart';
+import 'package:carwash/screens/user_body/componaent/drawer/widget/category.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DrawerWidgetGarage extends StatelessWidget {
+class DrawerWidgetUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: [
           MyDrawerHeader(),
-          CategoryListTileGarage(
+          CategoryListTileUser(
             text: 'My Account',
             function: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyProfile()));
             },
             iconData: Icons.person,
           ),
-          CategoryListTileGarage(
-            text: 'My Garages',
+          CategoryListTileUser(
+            text: 'My Cars',
             function: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyGarages()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => UserCars()));
             },
             iconData: Icons.car_repair,
           ),
-          CategoryListTileGarage(
-            text: 'Orders',
+          CategoryListTileUser(
+            text: 'My Orders',
             function: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>GarageOrders()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => UserOrders()));
             },
             iconData: Icons.fiber_manual_record_rounded,
-          ), CategoryListTileGarage(
-            text: 'Add Garage',
+          ),
+          CategoryListTileUser(
+            text: 'Add Order',
             function: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddGarage()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Garages()));
             },
             iconData: Icons.add,
           ),
-
           Divider(height: 3, color: Colors.indigoAccent),
-          CategoryListTileGarage(
+          CategoryListTileUser(
             text: 'Logout',
-            function: () {
+            function: () async {
               FirebaseAuth.instance.signOut();
-              for(;Navigator.canPop(context);){
+              for (; Navigator.canPop(context);) {
                 Navigator.pop(context);
               }
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInScreen(
-              )));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => SignInScreen()));
             },
             iconData: Icons.logout,
           ),

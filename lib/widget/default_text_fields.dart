@@ -9,7 +9,7 @@ class DefaultTextField extends StatelessWidget {
   final String? Function(dynamic value) validetor;
   final bool? isPass;
   final Widget? sufix;
-  final TextEditingController textEditingController;
+  final TextEditingController? textEditingController;
   final TextInputType? textInputType;
   final bool? enabled;
   final String? lable;

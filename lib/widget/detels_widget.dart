@@ -13,7 +13,6 @@ class _DetailsState extends State<Details> {
     'Marcedes',
     'Sozoky',
   ];
-
   String dropdownValue = 'jeep';
 
   @override
